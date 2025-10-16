@@ -1,552 +1,1054 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Walid Attou - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <!-- Basic -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">   
-   
-    <!-- Mobile Metas -->
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
- 
-     <!-- Site Metas -->
-    <title>Walid attou Portfolio</title>  
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <meta name="author" content="">
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+            cursor: none;
+        }
 
-    <!-- Site Icons -->
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+        /* Custom Cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #00f5ff;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.15s ease;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+        }
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <!-- Site CSS -->
-    <link rel="stylesheet" href="style.css">
-    <!-- Responsive CSS -->
-    <link rel="stylesheet" href="css/responsive.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/custom.css">
-	<script src="js/modernizr.js"></script> <!-- Modernizr -->
-	<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-	<script type="text/javascript"
-        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
-	</script>
+        .cursor-follower {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.3s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00f5ff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            cursor: pointer;
+            letter-spacing: 2px;
+            transition: transform 0.2s ease;
+            position: absolute;
+            left: 50px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            padding: 8px 0;
+            transition: color 0.3s, opacity 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #00f5ff, #ff00ff);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: #00f5ff;
+        }
+
+        /* Nav shrink on scroll */
+        .nav-shrink {
+            padding: 12px 40px !important;
+            background: rgba(10, 10, 10, 0.9);
+            border-bottom-color: rgba(255, 255, 255, 0.12);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background: #fff;
+            transition: all 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 90px;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: none;
+        }
+        
+        /* Floating Dots */
+        .floating-dots {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .dot {
+            position: absolute;
+            bottom: -50px;
+            border-radius: 50%;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .dot-1 {
+            width: 20px;
+            height: 20px;
+            left: 10%;
+            background: rgba(173, 216, 230, 0.4);
+            box-shadow: 0 0 8px rgba(173, 216, 230, 0.4);
+            animation: floatDot1 10s ease-in-out infinite;
+        }
+        
+        .dot-2 {
+            width: 35px;
+            height: 35px;
+            left: 25%;
+            background: rgba(173, 216, 230, 0.3);
+            box-shadow: 0 0 10px rgba(173, 216, 230, 0.3);
+            animation: floatDot2 15s ease-in-out infinite;
+        }
+        
+        .dot-3 {
+            width: 15px;
+            height: 15px;
+            left: 40%;
+            background: rgba(173, 216, 230, 0.5);
+            box-shadow: 0 0 6px rgba(173, 216, 230, 0.5);
+            animation: floatDot3 12s ease-in-out infinite;
+        }
+        
+        .dot-4 {
+            width: 25px;
+            height: 25px;
+            left: 60%;
+            background: rgba(173, 216, 230, 0.35);
+            box-shadow: 0 0 8px rgba(173, 216, 230, 0.35);
+            animation: floatDot4 14s ease-in-out infinite;
+        }
+        
+        .dot-5 {
+            width: 18px;
+            height: 18px;
+            left: 75%;
+            background: rgba(173, 216, 230, 0.45);
+            box-shadow: 0 0 7px rgba(173, 216, 230, 0.45);
+            animation: floatDot5 13s ease-in-out infinite;
+        }
+        
+        .dot-6 {
+            width: 30px;
+            height: 30px;
+            left: 85%;
+            background: rgba(173, 216, 230, 0.25);
+            box-shadow: 0 0 9px rgba(173, 216, 230, 0.25);
+            animation: floatDot6 16s ease-in-out infinite;
+        }
+        
+        @keyframes pulseDots {
+            0% {
+                background-size: 100% 100%, 100% 100%;
+                background-position: 50% 50%, 80% 20%;
+                opacity: 0.8;
+            }
+            50% {
+                background-size: 120% 120%, 110% 110%;
+                background-position: 51% 49%, 82% 18%;
+                opacity: 1;
+            }
+            100% {
+                background-size: 110% 110%, 120% 120%;
+                background-position: 49% 51%, 78% 22%;
+                opacity: 0.9;
+            }
+        }
+        
+        @keyframes floatDot1 {
+            0% { bottom: -50px; left: 10%; opacity: 0; }
+            20% { opacity: 0.8; }
+            50% { left: 15%; }
+            80% { opacity: 0.6; }
+            100% { bottom: 120%; left: 5%; opacity: 0; }
+        }
+        
+        @keyframes floatDot2 {
+            0% { bottom: -50px; left: 25%; opacity: 0; }
+            20% { opacity: 0.8; }
+            40% { left: 30%; }
+            70% { left: 20%; }
+            80% { opacity: 0.6; }
+            100% { bottom: 120%; left: 28%; opacity: 0; }
+        }
+        
+        @keyframes floatDot3 {
+            0% { bottom: -50px; left: 40%; opacity: 0; }
+            20% { opacity: 0.8; }
+            60% { left: 35%; }
+            80% { opacity: 0.6; }
+            100% { bottom: 120%; left: 42%; opacity: 0; }
+        }
+        
+        @keyframes floatDot4 {
+            0% { bottom: -50px; left: 60%; opacity: 0; }
+            20% { opacity: 0.8; }
+            50% { left: 65%; }
+            80% { opacity: 0.6; }
+            100% { bottom: 120%; left: 55%; opacity: 0; }
+        }
+        
+        @keyframes floatDot5 {
+            0% { bottom: -50px; left: 75%; opacity: 0; }
+            20% { opacity: 0.8; }
+            40% { left: 70%; }
+            70% { left: 80%; }
+            80% { opacity: 0.6; }
+            100% { bottom: 120%; left: 72%; opacity: 0; }
+        }
+        
+        @keyframes floatDot6 {
+            0% { bottom: -50px; left: 85%; opacity: 0; }
+            20% { opacity: 0.8; }
+            60% { left: 90%; }
+            80% { opacity: 0.6; }
+            100% { bottom: 120%; left: 88%; opacity: 0; }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(40px, 8vw, 120px);
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #00c8d0 0%, #d04caf 100%);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 1s ease, gradientShift 8s ease infinite;
+            text-shadow: 0 0 10px rgba(0, 200, 208, 0.2);
+        }
+
+        .hero-content .subtitle {
+            font-size: clamp(16px, 2vw, 24px);
+            color: #ccc;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .rotating-text {
+            font-size: clamp(18px, 2.5vw, 32px);
+            color: #00c8d0;
+            font-weight: 600;
+            animation: fadeInUp 1s ease 0.4s both;
+            text-shadow: 0 0 5px rgba(0, 200, 208, 0.3);
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes pulseText {
+            0% { opacity: 0.8; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.02); }
+        }
+        
+        @keyframes glowText {
+            0% { text-shadow: 0 0 10px rgba(0, 245, 255, 0.7); }
+            100% { text-shadow: 0 0 20px rgba(0, 245, 255, 1), 0 0 30px rgba(0, 245, 255, 0.5); }
+        }
+
+        .cta-button {
+            margin-top: 40px;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #00c8d0 0%, #d04caf 100%);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 200, 208, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(208, 76, 175, 0.4);
+        }
+
+        .cta-button:hover::before {
+            transform: translateX(100%);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: transform 0.6s ease;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 50px;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: clamp(36px, 5vw, 60px);
+            font-weight: 800;
+            margin-bottom: 60px;
+            text-align: center;
+            background: linear-gradient(135deg, #fff 0%, #888 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* About Section */
+        .about-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #00f5ff;
+        }
+
+        .about-text p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+
+        .about-image {
+            position: relative;
+            height: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #00f5ff, #ff00ff);
+            padding: 3px;
+        }
+
+        .about-image-inner {
+            width: 100%;
+            height: 100%;
+            background: #0a0a0a url('uploads/about_04.jpg') center/cover no-repeat;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            color: #333;
+        }
+
+        /* Responsive aspect ratio for About image */
+        @supports (aspect-ratio: 1 / 1) {
+            .about-image {
+                height: auto;
+                aspect-ratio: 4 / 3;
+            }
+            .about-image-inner {
+                height: 100%;
+            }
+        }
+
+        /* Services Section */
+        .services-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 245, 255, 0.1), rgba(255, 0, 255, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: #00f5ff;
+        }
+
+        .service-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .service-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .service-card p {
+            color: #888;
+            line-height: 1.6;
+        }
+
+        /* Portfolio Section */
+        .portfolio-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .portfolio-item {
+            position: relative;
+            height: 400px;
+            border-radius: 20px;
+            overflow: hidden;
+            background: #1a1a1a;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .portfolio-item:hover {
+            transform: scale(1.02);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 245, 255, 0.9), rgba(255, 0, 255, 0.9));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-overlay h3 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .portfolio-overlay p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .view-project {
+            padding: 12px 30px;
+            background: #fff;
+            color: #000;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .view-project:hover {
+            transform: scale(1.1);
+        }
+
+        /* Contact Section */
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 25px;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 18px 25px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            color: #fff;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #00f5ff;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-button {
+            padding: 18px 45px;
+            background: linear-gradient(135deg, #00f5ff, #ff00ff);
+            border: none;
+            border-radius: 50px;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .submit-button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 50px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #666;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 20px;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                flex-direction: column;
+                background: rgba(10, 10, 10, 0.98);
+                padding: 40px;
+                border-radius: 20px 0 0 20px;
+                transition: right 0.3s;
+                gap: 30px;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .about-image {
+                height: 300px;
+            }
+
+            @supports (aspect-ratio: 1 / 1) {
+                .about-image {
+                    height: auto;
+                    aspect-ratio: 1 / 1;
+                }
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-item {
+                height: 260px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-shrink {
+                padding: 14px 20px !important;
+            }
+        }
+
+        /* Floating particles animation */
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #00f5ff;
+            border-radius: 50%;
+            animation: float 10s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10%, 90% {
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-100vh) translateX(100px);
+            }
+        }
+    </style>
 </head>
-<body id="page-top" class="politics_version">
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
 
-    <!-- LOADER -->
-    <div id="preloader">
-        <div id="main-ld">
-			<div id="loader"></div>  
-		</div>
-    </div><!-- end loader -->
-    <!-- END LOADER -->
-	
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-      <div class="container">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          Menu
-          <i class="fa fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav text-uppercase ml-auto">
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger active" href="#home">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#about">About Us</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#services">Services</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a>
-            </li>
-			<li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#contact">Contect me</a>
-            </li>
-          </ul>
+    <nav>
+        <div class="logo">WALID</div>
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
-      </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
     </nav>
-	<section id="home" class="main-banner">
-		<div id="particles-js"></div>
-		<div class="heading">
-			<h1>hello i'm Walid</h1>
-			<p>Python developer | AI, Web & Video Editing enthusiast | Building smart tools & exploring new tech 🚀</p>
-			<h3 class="cd-headline clip is-full-width">
-				<span>i can help you with </span>
-				<span class="cd-words-wrapper">
-					<b class="is-visible">Web Development</b>
-					<b>Video Editing</b>
-					<b>Python Development</b>
 
-				</span>
-			</h3>
-		</div>
-	  </section>
-	
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-bg"></div>
 
-	<svg id="clouds" class="hidden-xs" xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100" viewBox="0 0 85 100" preserveAspectRatio="none">
-        <path d="M-5 100 Q 0 20 5 100 Z
-            M0 100 Q 5 0 10 100
-            M5 100 Q 10 30 15 100
-            M10 100 Q 15 10 20 100
-            M15 100 Q 20 30 25 100
-            M20 100 Q 25 -10 30 100
-            M25 100 Q 30 10 35 100
-            M30 100 Q 35 30 40 100
-            M35 100 Q 40 10 45 100
-            M40 100 Q 45 50 50 100
-            M45 100 Q 50 20 55 100
-            M50 100 Q 55 40 60 100
-            M55 100 Q 60 60 65 100
-            M60 100 Q 65 50 70 100
-            M65 100 Q 70 20 75 100
-            M70 100 Q 75 45 80 100
-            M75 100 Q 80 30 85 100
-            M80 100 Q 85 20 90 100
-            M85 100 Q 90 50 95 100
-            M90 100 Q 95 25 100 100
-            M95 100 Q 100 15 105 100 Z">
-        </path>
-    </svg>
+        <div class="hero-content">
+            <h1>Walid Attou</h1>
+            <p class="subtitle">Python Developer | AI Enthusiast | Creative Designer</p>
+            <div class="rotating-text" id="rotating-text">Building the future, one line at a time</div>
+            <button class="cta-button" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">Let's Work Together</button>
+        </div>
+    </section>
 
-    <div id="about" class="section wb">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="message-box">                        
-                        <h2>About Walid</h2>
-                        <p> I’m a web developer, Python enthusiast, and video editor with a passion for building dynamic websites, automating tasks, and exploring AI solutions. With experience in machine learning, creative design, and video editing, I focus on crafting efficient and impactful digital experiences. Let’s create something great together! 🚀 </p>
-                        <a href="https://drive.google.com/file/d/1R6GyItwJtqms_rUzhNtcLaGmGJp3qbxk/view?usp=sharing" target="_blank" class="sim-btn btn-hover-new" data-text="Download CV"><span>Download CV</span></a>
-                    </div><!-- end messagebox -->
-                </div><!-- end col -->
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Crafting Digital Experiences</h3>
+                <p>I'm a passionate web developer, Python enthusiast, and video editor dedicated to creating innovative digital solutions. With expertise in machine learning, automation, and creative design, I transform ideas into reality.</p>
+                <p>My work spans across dynamic websites, intelligent automation systems, and engaging video content. Let's collaborate to bring your vision to life! 🚀</p>
+                <button class="cta-button" onclick="window.open('https://drive.google.com/file/d/1Be3zjYAUru2es3x7ri3ajsmTuMv8rmrN/view?usp=sharing', '_blank')">Download CV</button>
+            </div>
+            <div class="about-image">
+                <div class="about-image-inner"></div>
+            </div>
+        </div>
+    </section>
 
-                <div class="col-md-6">
-                    <div class="right-box-pro wow fadeIn">
-                        <img src="uploads/about_04.jpg" alt="" class="img-fluid img-rounded">
-                    </div><!-- end media -->
-                </div><!-- end col -->
-            </div><!-- end row -->
-        </div><!-- end container -->
-    </div><!-- end section -->
-	
-    <div id="services" class="section lb">
-        <div class="container">
-            <div class="section-title text-left">
-                <h3>Services</h3>
-                <p>Providing expert web development, Python solutions and video editing to bring your ideas to life</p>
-            </div><!-- end title -->
+    <!-- Services Section -->
+    <section id="services">
+        <h2 class="section-title">What I Do</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🌐</div>
+                <h3>Web Development</h3>
+                <p>Creating responsive, high-performance websites and e-commerce platforms with seamless user experiences and modern design.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🎬</div>
+                <h3>Video Editing</h3>
+                <p>Producing engaging video content including ads, commercials, and gaming videos using professional tools and creative vision.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🐍</div>
+                <h3>Python Development</h3>
+                <p>Building intelligent solutions with Python for data science, web scraping, automation, and business process integration.</p>
+            </div>
+        </div>
+    </section>
 
-            <div class="row">
-				<div class="col-md-4">
-                    <div class="services-inner-box">
-						<div class="ser-icon">
-							<i class="flaticon-seo"></i>
-						</div>
-						<h2>Web Development</h2>
-						<p>I design and develop responsive landing pages and E-commerce websites, ensuring seamless functionality, user-friendly experiences, and optimized performance.</p>
-					</div>
-                </div><!-- end col -->
-                <div class="col-md-4">
-                    <div class="services-inner-box">
-						<div class="ser-icon">
-							<i class="flaticon-development"></i>
-						</div>
-						<h2>Video editing</h2>
-						<p>I create engaging ads, commercials, and gaming videos using CapCut and Adobe After Effects, delivering high-quality visuals that capture attention.</p>
-					</div>
-                </div><!-- end col -->
-				<div class="col-md-4">
-                    <div class="services-inner-box">
-						<div class="ser-icon">
-							<i class="flaticon-process"></i>
-						</div>
-						<h2>Python development</h2>
-						<p>I specialize in Python for data science, web scraping, and Odoo integration, providing smart solutions for automation and business efficiency.</p>
-					</div>
-                </div><!-- end col -->
-				
-            </div><!-- end row -->
-        </div><!-- end container -->
-    </div><!-- end section -->
-	
-	<div id="portfolio" class="section lb">
-		<div class="container">
-			<div class="section-title text-left">
-                <h3>Portfolio</h3>
-                <p>Explore my work and see how I bring ideas to life. Let’s build something amazing together!</p>
-            </div><!-- end title -->
-			
-			<div class="gallery-menu row">
-				<div class="col-md-12">
-					<div class="button-group filter-button-group text-left">
-						<button class="active" data-filter="*">All</button>
-						<button data-filter=".gal_a">Web Development</button>
-						<button data-filter=".gal_b">Python Projects</button>
-						<button data-filter=".gal_c">Video editing</button>
-					</div>
-				</div>
-			</div>
-			
-			<div class="gallery-list row">
-				<div class="col-md-4 col-sm-6 gallery-grid gal_b">
-					<div class="gallery-single fix">
-						<img src="uploads/GitHub.png" class="img-fluid" alt="Image">
-						<div class="img-overlay">
-							<a href="https://github.com/walidattou?tab=repositories" target="_blank" class="hoverbutton global-radius">
-								<i class="fa fa-external-link"></i>
-							</a>
-						</div>
-					</div>
-				</div>
-				
-				
-				<!-- Video editing portflolio -->
-
-				<div class="col-md-4 col-sm-6 gallery-grid gal_c ">
-					<div class="gallery-single fix">
-						<img src="uploads/gallery_img-02.jpg" class="img-fluid" alt="Image">
-						<div class="img-overlay">
-							<a href="https://www.youtube.com/watch?v=yswAZQRjF-A" target="_blank" class="hoverbutton global-radius">
-								<i class="fa fa-play"></i>
-							</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 col-sm-6 gallery-grid gal_c ">
-					<div class="gallery-single fix">
-						<img src="uploads/editing1.png" class="img-fluid" alt="Image">
-						<div class="img-overlay">
-							<a href="https://drive.google.com/file/d/1j0-hirP2HjQnEukIp0upYBl__o7rFqU9/view?pli=1" target="_blank" class="hoverbutton global-radius">
-								<i class="fa fa-play"></i>
-							</a>
-						</div>
-					</div>
-				</div>
-
-                <div class="col-md-4 col-sm-6 gallery-grid gal_c">
-					<div class="gallery-single fix">
-						<img src="uploads/editing2.png" class="img-fluid" alt="Image">
-						<div class="img-overlay">
-							<a href="https://drive.google.com/file/d/1OvR_ulaRX5K9VjgKMfl9oLeLBlSQZisY/view?usp=sharing	" target="_blank" class="hoverbutton global-radius">
-								<i class="fa fa-play"></i>
-							</a>
-						</div>
-					</div>
-				</div>
-
-
-
-
-	
-                <div class="col-md-4 col-sm-6 gallery-grid gal_c ">
-					<div class="gallery-single fix">
-						<img src="uploads/editing3.png" class="img-fluid" alt="Image">
-						<div class="img-overlay">
-							<a href="https://drive.google.com/file/d/1FmnogU2Dp_Dgki8P_G2vDs1w0SlV5hqB/view?usp=drive_link" target="_blank" class="hoverbutton global-radius">
-								<i class="fa fa-play"></i>
-							</a>
-						</div>
-					</div>
-				</div>
-
-
-				
-
-				<div class="col-md-4 col-sm-6 gallery-grid gal_a">
-					<div class="gallery-single fix">
-						<img src="uploads/web3.png" class="img-fluid" alt="Image">
-						<div class="img-overlay">
-							<a href="https://loquacious-beijinho-d8a572.netlify.app" target="_blank" class="hoverbutton global-radius">
-								<i class="fa fa-external-link"></i>
-							</a>
-						</div>
-					</div>
-				</div>
-
-
-
-
-				<div class="col-md-4 col-sm-6 gallery-grid gal_c ">
-					<div class="gallery-single fix">
-						<img src="uploads/editing4.png" class="img-fluid" alt="Image">
-						<div class="img-overlay">
-							<a href="https://www.youtube.com/shorts/5vEiFNynbyE" target="_blank" class="hoverbutton global-radius">
-								<i class="fa fa-play"></i>
-							</a>
-						</div>
-					</div>
-				</div>
-                
-
-
-                <div class="col-md-4 col-sm-6 gallery-grid gal_c ">
-					<div class="gallery-single fix">
-						<img src="uploads/editing5.png" class="img-fluid" alt="Image">
-						<div class="img-overlay">
-							<a href="https://drive.google.com/file/d/1L91dfSA7mVp422MlLFj2zOah82kJo0iY/view?usp=sharing" target="_blank" class="hoverbutton global-radius">
-								<i class="fa fa-play"></i>
-							</a>
-						</div>
-					</div>
-				</div>
-
-
-
-
-
-				<div class="col-md-4 col-sm-6 gallery-grid gal_a">
-					<div class="gallery-single fix">
-						<img src="uploads/gallery_img-03.jpg" class="img-fluid" alt="Image">
-						<div class="img-overlay">
-							<a href="https://www.sohixe.com" target="_blank" class="hoverbutton global-radius">
-								<i class="fa fa-external-link"></i>
-							</a>
-						</div>
-					</div>
-				</div>
-
-
-				<div class="col-md-4 col-sm-6 gallery-grid gal_a">
-					<div class="gallery-single fix">
-						<img src="uploads/gallery_img-01.jpg" class="img-fluid" alt="Image">
-						<div class="img-overlay">
-							<a href="https://www.edit-wave.com" target="_blank" class="hoverbutton global-radius">
-								<i class="fa fa-external-link"></i>
-							</a>
-						</div>
-					</div>
-				</div>
-
-				
-			</div>
-			</div>
-		</div>
-	</div>
-	
-	
-	<div id="contact" class="section db">
-		<div class="container">
-			<div class="section-title text-left">
-				<h3>Contact</h3>
-				<p>Have a project in mind or need assistance? Feel free to reach out—I’d love to collaborate!</p>
-			</div>
-	
-			<div class="row">
-				<div class="col-md-12">
-					<div class="contact_form">
-						<div id="success"></div>
-						<form id="contactForm">
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<input class="form-control" id="name" name="name" type="text" placeholder="Your Name" required>
-									</div>
-									<div class="form-group">
-										<input class="form-control" id="email" name="email" type="email" placeholder="Your Email" required>
-									</div>
-									<div class="form-group">
-										<input class="form-control" id="phone" name="phone" type="tel" placeholder="Your Phone">
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<textarea class="form-control" id="message" name="message" placeholder="Your Message" required></textarea>
-									</div>
-								</div>
-								<div class="clearfix"></div>
-								<div class="col-lg-12 text-center">
-									<button id="sendMessageButton" class="sim-btn btn-hover-new" data-text="Send Message" type="submit">Send Message</button>
-								</div>
-							</div>
-	
-							<!-- Web3Forms API Key -->
-							<input type="hidden" name="access_key" value="c34a1322-2e6a-43f9-92df-e7a4e89c4338">
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-
-    <div class="copyrights">
-        <div class="container">
-            <div class="footer-distributed">
-                <div class="footer-left">
-                    <p class="footer-links">
-                        
-                    </p>
+    <!-- Portfolio Section -->
+    <section id="portfolio">
+        <h2 class="section-title">Featured Work</h2>
+        <div class="portfolio-grid">
+            <div class="portfolio-item" style="background-image: url('uploads/GitHub.png');">
+                <div class="portfolio-overlay">
+                    <h3>GitHub Projects</h3>
+                    <p>Python & Development</p>
+                    <a href="https://github.com/walidattou?tab=repositories" target="_blank" class="view-project">View Projects</a>
                 </div>
             </div>
-        </div><!-- end container -->
-    </div><!-- end copyrights -->
+            <div class="portfolio-item" style="background-image: url('uploads/gallery_img-03.jpg');">
+                <div class="portfolio-overlay">
+                    <h3>Sohixe</h3>
+                    <p>Web Development</p>
+                    <a href="https://www.sohixe.com" target="_blank" class="view-project">Visit Site</a>
+                </div>
+            </div>
+            <div class="portfolio-item" style="background-image: url('uploads/gallery_img-01.jpg');">
+                <div class="portfolio-overlay">
+                    <h3>Edit Wave</h3>
+                    <p>Web Development</p>
+                    <a href="https://www.edit-wave.com" target="_blank" class="view-project">Visit Site</a>
+                </div>
+            </div>
 
-    <a href="#" id="scroll-to-top" class="dmtop global-radius"><i class="fa fa-angle-up"></i></a>
-
-    <!-- ALL JS FILES -->
-    <script src="js/all.js"></script>
-	<!-- Camera Slider -->
-	<script src="js/jquery.mobile.customized.min.js"></script>
-	<script src="js/jquery.easing.1.3.js"></script> 
-	<script src="js/parallaxie.js"></script>
-	<script src="js/headline.js"></script>
-	<!-- Contact form JavaScript -->
-    <script src="js/jqBootstrapValidation.js"></script>
-    <script src="js/contact_me.js"></script>
-    <!-- ALL PLUGINS -->
-    <script src="js/custom.js"></script>
-    <script src="js/jquery.vide.js"></script>
-	<script>
-		particlesJS("particles-js", {
-		  "particles": {
-			"number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
-			"color": { "value": "#ffffff" },
-			"shape": { "type": "circle" },
-			"opacity": { "value": 0.5, "random": true },
-			"size": { "value": 3, "random": true },
-			"line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1 },
-			"move": { "enable": true, "speed": 2, "direction": "none", "random": true, "straight": false, "out_mode": "out" }
-		  },
-		  "interactivity": {
-			"detect_on": "canvas",
-			"events": {
-			  "onhover": { "enable": true, "mode": "grab" },
-			  "onclick": { "enable": true, "mode": "push" },
-			  "resize": true
-			},
-			"modes": { "grab": { "distance": 140, "line_linked": { "opacity": 1 } } }
-		  }
-		});
-	  </script>
+            <div class="portfolio-item" style="background-image: url('uploads/web3.png');">
+                <div class="portfolio-overlay">
+                    <h3>Real estate website</h3>
+                    <p>Web Development</p>
+                    <a href="https://loquacious-beijinho-d8a572.netlify.app" target="_blank" class="view-project">Visit Site</a>
+                </div>
+            </div>
 
 
+            <div class="portfolio-item" style="background-image: url('uploads/les services bf.png');">
+                <div class="portfolio-overlay">
+                    <h3>Cleaning services website</h3>
+                    <p>Web Development</p>
+                    <a href="https://www.lesservicesbf.com" target="_blank" class="view-project">Visit Site</a>
+                </div>
+            </div>
+
+            <div class="portfolio-item" style="background-image: url('uploads/Gebalu.png');">
+                <div class="portfolio-overlay">
+                    <h3>Construction company website</h3>
+                    <p>Web Development</p>
+                    <a href="https://gebalu.vercel.app" target="_blank" class="view-project">Visit Site</a>
+                </div>
+            </div>
 
 
+            <div class="portfolio-item" style="background-image: url('uploads/Elavation.png');">
+                <div class="portfolio-overlay">
+                    <h3>Cleaning services website</h3>
+                    <p>Web Development</p>
+                    <a href="https://eloichicoine.github.io/ElevationVA" target="_blank" class="view-project">Visit Site</a>
+                </div>
+            </div>
 
 
+            <div class="portfolio-item" style="background-image: url('uploads/German game.png');">
+                <div class="portfolio-overlay">
+                    <h3>German game website</h3>
+                    <p>Web Development</p>
+                    <a href="https://german-game.vercel.app" target="_blank" class="view-project">Visit Site</a>
+                </div>
+            </div>
 
+            
+        </div>
+    </section>
 
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-content">
+            <form class="contact-form" id="contactForm">
+                <div class="form-group">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" name="phone" placeholder="Your Phone">
+                </div>
+                <div class="form-group">
+                    <textarea name="message" placeholder="Your Message" required></textarea>
+                </div>
+                <button type="submit" class="submit-button">Send Message</button>
+                <input type="hidden" name="access_key" value="c34a1322-2e6a-43f9-92df-e7a4e89c4338">
+            </form>
+        </div>
+    </section>
 
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Walid Attou. All rights reserved.</p>
+    </footer>
 
-	<script>
-		// Create cursor
-		const cursor = document.createElement('div');
-		cursor.classList.add('smart-cursor');
-		
-		// Create cursor text element
-		const cursorText = document.createElement('div');
-		cursorText.classList.add('cursor-text');
-		cursor.appendChild(cursorText);
-		
-		document.body.appendChild(cursor);
-		
-		// Track mouse position
-		document.addEventListener('mousemove', (e) => {
-		cursor.style.left = e.clientX + 'px';
-		cursor.style.top = e.clientY + 'px';
-		});
-	
-		// Click effect
-		document.addEventListener('click', (e) => {
-		const clickEffect = document.createElement('div');
-		clickEffect.classList.add('cursor-click');
-		clickEffect.style.left = e.clientX + 'px';
-		clickEffect.style.top = e.clientY + 'px';
-		document.body.appendChild(clickEffect);
-		
-		// Animate click
-		setTimeout(() => {
-			clickEffect.style.animation = 'clickEffect 0.5s forwards';
-		}, 10);
-		
-		// Remove after animation
-		setTimeout(() => {
-			clickEffect.remove();
-		}, 600);
-		});
-	
-		// Hover effects for headings
-		const headings = document.querySelectorAll();
-		
-		headings.forEach(heading => {
-		heading.addEventListener('mouseenter', () => {
-			// Get heading text (trimmed and limited to 3 words)
-			const text = heading.textContent.trim().split(/\s+/).slice(0, 3).join(' ');
-			
-			// Enlarge cursor and show text
-			cursor.style.width = 'auto';
-			cursor.style.height = '40px';
-			cursor.style.padding = '0 15px';
-			cursor.style.borderRadius = '20px';
-			cursor.style.backgroundColor = 'rgba(255, 255, 255, 1)';
-			
-			cursorText.textContent = text;
-			cursorText.style.fontSize = '12px';
-			cursorText.style.opacity = '1';
-			
-			// Add pulse animation
-			cursor.style.animation = 'pulse 2s infinite';
-		});
-		
-		heading.addEventListener('mouseleave', () => {
-			// Return to normal state
-			cursor.style.width = '24px';
-			cursor.style.height = '24px';
-			cursor.style.padding = '0';
-			cursor.style.borderRadius = '50%';
-			cursor.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
-			cursor.style.animation = 'none';
-			
-			cursorText.style.fontSize = '0px';
-			cursorText.style.opacity = '0';
-		});
-		
-		heading.addEventListener('click', () => {
-			// Bigger effect on click
-			cursor.style.width = 'auto';
-			cursor.style.height = '50px';
-			cursor.style.padding = '0 20px';
-			cursor.style.borderRadius = '25px';
-			cursor.style.backgroundColor = 'rgba(255, 255, 255, 1)';
-			cursorText.style.fontSize = '14px';
-			
-			// Return to hover state after click
-			setTimeout(() => {
-			cursor.style.width = 'auto';
-			cursor.style.height = '40px';
-			cursor.style.padding = '0 15px';
-			cursor.style.borderRadius = '20px';
-			cursorText.style.fontSize = '12px';
-			}, 300);
-		});
-		});
-	
-		// Add pulse animation
-		const style = document.createElement('style');
-		style.textContent = `
-		@keyframes pulse {
-			0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
-			70% { box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
-			100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
-		}
-		`;
-		document.head.appendChild(style);
-	</script>
-	
+    <script>
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        const follower = document.querySelector('.cursor-follower');
 
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            setTimeout(() => {
+                follower.style.left = e.clientX + 'px';
+                follower.style.top = e.clientY + 'px';
+            }, 100);
+        });
 
+        // Mobile Menu
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
 
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
 
+        // Close menu when link is clicked
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
 
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
 
+        // Active link highlight + nav shrink on scroll
+        const nav = document.querySelector('nav');
+        const sections = Array.from(document.querySelectorAll('section'));
+        const linkMap = new Map();
+        document.querySelectorAll('.nav-links a').forEach(a => {
+            linkMap.set(a.getAttribute('href'), a);
+        });
 
+        function onScroll() {
+            const scrollY = window.scrollY;
+            if (scrollY > 10) {
+                nav.classList.add('nav-shrink');
+            } else {
+                nav.classList.remove('nav-shrink');
+            }
 
+            let activeHref = '#home';
+            for (const section of sections) {
+                const rect = section.getBoundingClientRect();
+                const top = rect.top + window.scrollY - 120;
+                if (scrollY >= top) {
+                    activeHref = '#' + section.id;
+                }
+            }
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+            const activeLink = linkMap.get(activeHref);
+            if (activeLink) activeLink.classList.add('active');
+        }
 
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
 
+        // Floating Particles
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 10 + 's';
+            document.querySelector('.hero').appendChild(particle);
+            
+            setTimeout(() => particle.remove(), 10000);
+        }
+
+        setInterval(createParticle, 500);
+
+        // Form Submission
+        document.getElementById('contactForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            
+            try {
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (response.ok) {
+                    alert('Message sent successfully!');
+                    e.target.reset();
+                } else {
+                    alert('Failed to send message. Please try again.');
+                }
+            } catch (error) {
+                alert('An error occurred. Please try again.');
+            }
+        });
+
+        // Scroll Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 1s ease forwards';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.service-card, .portfolio-item').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
 </body>
 </html>
